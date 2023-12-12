@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Web Troll</title>
+    <style>
+        body {
+            background-image: url('bg.jpeg')
+        }
+
+        .random-position {
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="text-center mt-5 text-white">Wanna be my girlfriend?</h1>
+        <div class="d-flex justify-content-center mt-5">
+            <button id="yesButton" class="btn btn-primary">Yes</button>
+            <div style="width:20px"></div>
+            <button id="noButton" class="btn btn-danger">No</button>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel">Awwww</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h4>So sweet! Let's send a message to me!!!</h4>
+                    <textarea id="textarea" class="form-control" rows="3"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="submitButton">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Randomly position the element
+            function randomPosition() {
+                var screenWidth = window.innerWidth;
+                var screenHeight = window.innerHeight;
+                var element = $("#noButton");
+                var elementWidth = element.outerWidth();
+                var elementHeight = element.outerHeight();
+                var randomX = Math.floor(Math.random() * 400) - 200 + parseInt(element.css("left"));
+                var randomY = Math.floor(Math.random() * 400) - 200 + parseInt(element.css("top"));
+                element.css({ "left": randomX + "px", "top": randomY + "px" });
+                element.addClass("random-position");
+            }
+            let count = 0;
+            const sample_content = "You're so handsome! I love you so much!"
+
+            // Event listener for hover effect
+            $("#noButton").mouseover(randomPosition);
+
+            $("#yesButton").click(function () {
+                count = 0;
+                $("#myModal").modal("show");
+            });
+
+            // Event listener for textarea input
+            $("#textarea").on("input", function () {
+                var input = $(this).val();
+                var output = "";
+                for (var i = 0; i < input.length; i++) {
+                    output = sample_content.substring(0, i + 1);
+                }
+                $(this).val(output);
+            });
+
+            $("#submitButton").on("click", function () {
+                alert("Thank you so much! I love you too <3");
+            })
+        });
+    </script>
+</body>
+
+</html>
